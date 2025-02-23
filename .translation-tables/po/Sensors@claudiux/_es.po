@@ -1,0 +1,36 @@
+# SENSORS MONITOR
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# claudiux, 2020
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://github.com/linuxmint/cinnamon-spices-applets/"
+"issues\n"
+"POT-Creation-Date: 2025-02-22 17:57+0100\n"
+"PO-Revision-Date: 2025-02-20 14:50-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#. settings-schema.json->separator_type->options
+msgid "(none)"
+msgstr ""
+
+#. settings-schema.json->separator_type->options
+msgid "blank"
+msgstr ""
+
+#. settings-schema.json->separator_type->options
+msgid "bar"
+msgstr ""
+
+#. settings-schema.json->separator_type->description
+msgid "Separator"
+msgstr ""
