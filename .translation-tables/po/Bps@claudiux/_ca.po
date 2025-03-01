@@ -1,0 +1,63 @@
+# DOWNLOAD AND UPLOAD SPEED
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# cardsurf, 2016
+#
+msgid ""
+msgstr ""
+
+#. applet.js:77
+msgid "Does not work on vertical panel!"
+msgstr ""
+
+#. metadata.json->description
+msgid "Instant Network Speed is a simple network monitor"
+msgstr ""
+
+#. metadata.json->name
+msgid "Bps: Instant Network Speed"
+msgstr ""
+
+#. settings-schema.json->gui_value_order->tooltip
+msgid "An order of values shown in the panel"
+msgstr ""
+
+#. settings-schema.json->minimum_start->description
+msgid "Minimum displayed value"
+msgstr ""
+
+#. settings-schema.json->display_minimum_quantity->description
+msgid "Value"
+msgstr ""
+
+#. settings-schema.json->display_minimum_quantity->tooltip
+msgid "Value between 0 and 999 (decimal) or 1023 (binary)."
+msgstr ""
+
+#. settings-schema.json->display_minimum_unit_multiple->description
+msgid "Multiple"
+msgstr ""
+
+#. settings-schema.json->display_minimum_unit_multiple->options
+msgid "1"
+msgstr ""
+
+#. settings-schema.json->display_minimum_unit_multiple->options
+msgid "k"
+msgstr ""
+
+#. settings-schema.json->display_minimum_unit_multiple->options
+msgid "M"
+msgstr ""
+
+#. settings-schema.json->display_minimum_unit_multiple->options
+msgid "G"
+msgstr ""
+
+#. settings-schema.json->display_minimum_unit_multiple->options
+msgid "T"
+msgstr ""
+
+#. settings-schema.json->display_minimum_button->description
+msgid "Apply"
+msgstr ""
