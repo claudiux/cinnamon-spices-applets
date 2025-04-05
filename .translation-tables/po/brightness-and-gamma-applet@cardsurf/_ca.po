@@ -1,0 +1,31 @@
+# BRIGHTNESS AND GAMMA APPLET
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# cardsurf, 2017
+#
+msgid ""
+msgstr ""
+
+#. settings-schema.json->configuration_start->description
+#. 6.4->settings-schema.json->configuration_start->description
+msgid "Configuration"
+msgstr ""
+
+#. 6.4->settings-schema.json->disable_nightmode->description
+msgid "Disable Night Mode"
+msgstr ""
+
+#. 6.4->settings-schema.json->disable_nightmode->tooltip
+msgid ""
+"Disable Cinnamon Night Mode while this applet is running.\n"
+"This prevents the screen from flickering.\n"
+"The adjustment time can be up to twice the number of seconds indicated below."
+msgstr ""
+
+#. 6.4->settings-schema.json->brightness_up_shortcut->description
+msgid "Hotkey to Increase brightness"
+msgstr ""
+
+#. 6.4->settings-schema.json->brightness_down_shortcut->description
+msgid "Hotkey to Decrease brightness"
+msgstr ""
