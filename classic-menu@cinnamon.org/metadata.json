@@ -1,0 +1,7 @@
+{
+ "uuid": "classic-menu@cinnamon.org",
+ "name": "Classic Menu",
+ "description": "The Classic Main Cinnamon menu from LMDE 7 or LM22.2",
+ "icon": "applications-other",
+ "max-instances": -1
+}
