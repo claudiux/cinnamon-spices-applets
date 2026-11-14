@@ -16,6 +16,7 @@ function _require(relPath) {
     return require(relPath);
   }
 }
+var {find_program_in_path} = _require("./findProgramInPath");
 //St:
 const {
   Icon,
@@ -53,7 +54,6 @@ const {
   getenv,
   get_language_names,
   filename_to_uri,
-  find_program_in_path,
   mkdir_with_parents,
   file_set_contents,
   file_get_contents,
@@ -104,13 +104,14 @@ const Cinnamon = imports.gi.Cinnamon;
 const Pango = imports.gi.Pango;
 const Clutter = imports.gi.Clutter;
 
-const { to_string } = _require("to-string");
+var { to_string } = _require("to-string");
 
-const { HttpLib, Jobs } = _require("httpLib");
+var { HttpLib, Jobs } = _require("httpLib");
 // constants:
-const {
+var {
   UUID,
   HOME_DIR,
+  USER_DATA_DIR,
   APPLET_DIR,
   SCRIPTS_DIR,
   ICONS_DIR,
@@ -145,7 +146,7 @@ const {
 //~ var WAITING = {}
 //~ for (let t of TYPES) WAITING[t] = 30000; // 30 seconds
 
-const { versionCompare } = _require("./utils");
+var { versionCompare } = _require("./utils");
 
 const ICONTHEME = Gtk.IconTheme.get_default();
 ICONTHEME.prepend_search_path(ICONS_DIR);
@@ -1440,13 +1441,13 @@ var SpicesUpdate = class SpicesUpdate extends IconApplet {
         "/usr/share/fonts/ttf-ancient-fonts/Symbola_hint.ttf",
       ).query_exists(null) ||
       file_new_for_path(
-        "%s/.local/share/fonts/Symbola_Hinted.ttf".format(HOME_DIR),
+        "%s/fonts/Symbola_Hinted.ttf".format(USER_DATA_DIR),
       ).query_exists(null) ||
       file_new_for_path(
-        "%s/.local/share/fonts/Symbola.ttf".format(HOME_DIR),
+        "%s/fonts/Symbola.ttf".format(USER_DATA_DIR),
       ).query_exists(null) ||
       file_new_for_path(
-        "%s/.local/share/fonts/Symbola.otf".format(HOME_DIR),
+        "%s/fonts/Symbola.otf".format(USER_DATA_DIR),
       ).query_exists(null);
 
     if (!_fonts_installed) {

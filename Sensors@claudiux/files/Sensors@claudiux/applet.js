@@ -16,6 +16,8 @@ function _require(relPath) {
         return require(relPath);
     }
 }
+
+var {find_program_in_path} = _require("./lib/findProgramInPath");
 //util
 const {spawnCommandLineAsyncIO, spawnCommandLineAsync, spawnCommandLine, unref} = _require("./lib/util");
 //to-string
@@ -555,7 +557,7 @@ var SensorsApplet = class SensorsApplet extends Applet.Applet {
   is_disktemp_user_readable() {
     var ret = false;
     var sudoers_smartctl_path = "/etc/sudoers.d/smartctl";
-    if (GLib.find_program_in_path("/usr/bin/dnf") || GLib.find_program_in_path("/usr/bin/pacman")) {
+    if (find_program_in_path("/usr/bin/dnf") || find_program_in_path("/usr/bin/pacman")) {
       // Distro is Fedora or Arch based.
       sudoers_smartctl_path = "/etc/sudoersSensors.d/smartctl";
     }

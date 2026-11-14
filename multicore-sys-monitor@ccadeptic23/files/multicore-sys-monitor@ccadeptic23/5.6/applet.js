@@ -25,6 +25,7 @@ function _require(relPath) {
     }
 }
 
+var {find_program_in_path} = _require("./lib/findProgramInPath");
 var { to_string } = _require("./lib/tostring");
 var { readFileAsync } = _require("./lib/readFileAsync");
 var Graphs = _require("./lib/Graphs");
@@ -909,7 +910,7 @@ var MCSM = class MCSM extends Applet.TextIconApplet {
             this._applet_context_menu.addMenuItem(this.w_graphs_item, 1);
         }
 
-        if (this.is_sudoer && GLib.find_program_in_path("pkexec") && GLib.find_program_in_path("sysctl")) {
+        if (this.is_sudoer && find_program_in_path("pkexec") && find_program_in_path("sysctl")) {
             this._applet_context_menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
             let drop_cache_item = new Applet.MenuItem(
                 _("Drop Memory Cache (needs root rights)"),
@@ -2796,6 +2797,10 @@ var DiskDataProvider = class DiskDataProvider {
         return this.applet.Disk_enabledTooltip;
     }
 
+    get areEnabledBothTooltips() {
+        return (this.applet.DiskUsage_enabledTooltip && this.applet.Disk_enabledTooltip)
+    }
+
     get isRunning() {
         return this.applet.isRunning;
     }
@@ -2880,6 +2885,10 @@ var DiskUsageDataProvider = class DiskUsageDataProvider {
 
     get isEnabledTooltip() {
         return this.applet.DiskUsage_enabledTooltip;
+    }
+
+    get areEnabledBothTooltips() {
+        return (this.applet.DiskUsage_enabledTooltip && this.applet.Disk_enabledTooltip)
     }
 
     get isRunning() {

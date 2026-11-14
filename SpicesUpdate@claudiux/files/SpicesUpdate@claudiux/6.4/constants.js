@@ -20,6 +20,7 @@ var {
 var UUID="SpicesUpdate@claudiux";
 
 var HOME_DIR = GLib.get_home_dir();
+var USER_DATA_DIR = GLib.get_user_data_dir();
 
 /**
  * DEBUG:
@@ -28,7 +29,7 @@ var HOME_DIR = GLib.get_home_dir();
  */
 
 function DEBUG() {
-  let _debug = Gio.file_new_for_path(HOME_DIR + "/.local/share/cinnamon/applets/" + UUID + "/DEBUG");
+  let _debug = Gio.file_new_for_path(USER_DATA_DIR + "/cinnamon/applets/" + UUID + "/DEBUG");
   return _debug.query_exists(null);
 };
 
@@ -44,7 +45,7 @@ function RELOAD() {
 };
 
 //~ function QUICK() {
-  //~ let _quick = Gio.file_new_for_path(HOME_DIR + "/.local/share/cinnamon/applets/" + UUID + "/QUICK");
+  //~ let _quick = Gio.file_new_for_path(USER_DATA_DIR + "/cinnamon/applets/" + UUID + "/QUICK");
   //~ return _quick.query_exists(null);
 //~ };
 
@@ -53,7 +54,7 @@ var DOWNLOAD_TIME = 60;
 var TAB = "1";
 var SORT = "update";
 
-var APPLET_DIR = HOME_DIR + "/.local/share/cinnamon/applets/" + UUID;
+var APPLET_DIR = USER_DATA_DIR + "/cinnamon/applets/" + UUID;
 var SCRIPTS_DIR = APPLET_DIR + "/scripts";
 var ICONS_DIR = APPLET_DIR + "/icons";
 var HELP_DIR = APPLET_DIR + "/help";
@@ -94,12 +95,12 @@ var CACHE_MAP = {
 }
 
 var DIR_MAP = {
-  'applets': HOME_DIR + "/.local/share/cinnamon/applets",
+  'applets': USER_DATA_DIR + "/cinnamon/applets",
   //~ 'themes': (GLib.file_test(HOME_DIR + "/.local/share/cinnamon/themes", GLib.FileTest.EXISTS)) ? HOME_DIR + "/.local/share/cinnamon/themes" : HOME_DIR + "/.themes",
   'themes': HOME_DIR + "/.themes",
-  'desklets': HOME_DIR + "/.local/share/cinnamon/desklets",
-  'extensions': HOME_DIR + "/.local/share/cinnamon/extensions",
-  'actions': HOME_DIR + "/.local/share/nemo/actions"
+  'desklets': USER_DATA_DIR + "/cinnamon/desklets",
+  'extensions': USER_DATA_DIR + "/cinnamon/extensions",
+  'actions': USER_DATA_DIR + "/nemo/actions"
 }
 
 var DCONFCACHEUPDATED = {
@@ -111,7 +112,7 @@ var DCONFCACHEUPDATED = {
 }
 
 // ++ l10n support
-Gettext.bindtextdomain(UUID, HOME_DIR + "/.local/share/locale");
+Gettext.bindtextdomain(UUID, USER_DATA_DIR + "/locale");
 Gettext.bindtextdomain("cinnamon-control-center", "/usr/share/locale");
 
 // ++ Always needed if you want localisation/translation support
@@ -200,6 +201,7 @@ if (!Extension.getCurrentExtension)
 module.exports = {
   UUID,
   HOME_DIR,
+  USER_DATA_DIR,
   APPLET_DIR,
   SCRIPTS_DIR,
   ICONS_DIR,

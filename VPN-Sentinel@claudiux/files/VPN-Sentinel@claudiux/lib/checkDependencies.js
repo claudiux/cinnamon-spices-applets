@@ -17,6 +17,8 @@ function _require(relPath) {
   }
 }
 
+var {find_program_in_path} = _require("./lib/findProgramInPath");
+
 var {to_string} = _require("./lib/to-string");
 
 
@@ -136,7 +138,8 @@ var _ = function(str) {
 
 const UPDATE = {
   "default": "sudo apt-get update",
-  "arch": GLib.find_program_in_path("yay") != null ? "yay -Syu" : "sudo pacman -Syu",
+  //~ "arch": GLib.find_program_in_path("yay") != null ? "yay -Syu" : "sudo pacman -Syu",
+  "arch": find_program_in_path("yay") != null ? "yay -Syu" : "sudo pacman -Syu",
   "debian": "apt-get update",
   "devuan": "apt-get update",
   "fedora": "sudo dnf update",
@@ -146,7 +149,8 @@ const UPDATE = {
 
 const INSTALL = {
   "default": "sudo apt-get install",
-  "arch": GLib.find_program_in_path("yay") != null ? "yay -S" : "sudo pacman -S",
+  //~ "arch": GLib.find_program_in_path("yay") != null ? "yay -S" : "sudo pacman -S",
+  "arch": find_program_in_path("yay") != null ? "yay -S" : "sudo pacman -S",
   "debian": "apt-get install",
   "devuan": "apt-get install",
   "fedora": "sudo dnf install",
@@ -196,7 +200,8 @@ function get_terminal() {
   var _terminals = ["gnome-terminal", "tilix", "konsole", "guake", "qterminal", "terminator", "uxterm", "xterm"];
   var t;
   for (t=0; t < _terminals.length ; ++t) {
-    if (GLib.find_program_in_path(_terminals[t])) {
+    //~ if (GLib.find_program_in_path(_terminals[t])) {
+    if (find_program_in_path(_terminals[t])) {
       term_found = _terminals[t];
       break
     }
@@ -227,7 +232,8 @@ function get_default_terminal_separator() {
 } // End of get_default_terminal_separator
 
 function isFedora() {
-  return GLib.find_program_in_path("dnf")
+  //~ return GLib.find_program_in_path("dnf")
+  return find_program_in_path("dnf")
 } // End of isFedora
 
 function isArchLinux() {
@@ -239,7 +245,8 @@ function isDebian() {
 } // End of isDebian
 
 function isOpenSUSE() {
-  return GLib.find_program_in_path("zypper")
+  //~ return GLib.find_program_in_path("zypper")
+  return find_program_in_path("zypper")
 }
 
 function isGentoo() {
@@ -247,21 +254,25 @@ function isGentoo() {
 } // End of isGentoo
 
 function is_apturl_present() {
-  return GLib.find_program_in_path("apturl")
+  //~ return GLib.find_program_in_path("apturl")
+  return find_program_in_path("apturl")
 } // End of is_apturl_present
 
 
 function is_pkexec_present() {
-  return (GLib.find_program_in_path("pkexec") != null)
+  //~ return (GLib.find_program_in_path("pkexec") != null)
+  return (find_program_in_path("pkexec") != null)
 } // End of is_pkexec_present
 
 function is_pkcon_present() {
-  return (GLib.find_program_in_path("pkcon") != null && GLib.find_program_in_path("pkexec") != null)
+  //~ return (GLib.find_program_in_path("pkcon") != null && GLib.find_program_in_path("pkexec") != null)
+  return (find_program_in_path("pkcon") != null && GLib.find_program_in_path("pkexec") != null)
 } // End of is_pkcon_present
 
 function is_pkgcli_present() {
   //~ return GLib.find_program_in_path("apturl")
-  return (GLib.find_program_in_path("pkgcli") != null && GLib.find_program_in_path("pkexec") != null)
+  //~ return (GLib.find_program_in_path("pkgcli") != null && GLib.find_program_in_path("pkexec") != null)
+  return (find_program_in_path("pkgcli") != null && GLib.find_program_in_path("pkexec") != null)
 } // End of is_pkgcli_present
 
 function get_distro() {
@@ -295,13 +306,14 @@ function get_pkg_to_install() {
   for (let d of DEPENDENCIES[distro]) {
     var isInstalled = false;
     let executables = Array.isArray(d[0]) ? d[0] : [d[0]];
-    var find_program_in_path;
-    if (Cinnamon.find_program_in_path) {
-      find_program_in_path = (p, s) => Cinnamon.find_program_in_path(p, () => {});
-    } else {
-      find_program_in_path = (p, s) => GLib.find_program_in_path(p);
-    }
-    if (executables.some(e => e.length > 0 && find_program_in_path(e, null))) {
+    //~ var find_program_in_path;
+    //~ if (Cinnamon.find_program_in_path) {
+      //~ find_program_in_path = (p, s) => Cinnamon.find_program_in_path(p, () => {});
+    //~ } else {
+      //~ find_program_in_path = (p, s) => GLib.find_program_in_path(p);
+    //~ }
+    //~ if (executables.some(e => e.length > 0 && find_program_in_path(e, null))) {
+    if (executables.some(e => e.length > 0 && find_program_in_path(e))) {
       isInstalled = true;
     } else {
       if (d[1].length > 0 && Gio.file_new_for_path(d[1]).query_exists(null)) {

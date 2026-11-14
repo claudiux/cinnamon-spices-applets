@@ -14,10 +14,11 @@ function _require(relPath) {
     }
 }
 
-const Util = _require("./lib/util");
+var {find_program_in_path} = _require("./lib/findProgramInPath");
+var Util = _require("./lib/util");
 
-const {to_string} = _require("./lib/to-string");
-const {readFileAsync} = _require("./lib/readFileAsync");
+var {to_string} = _require("./lib/to-string");
+var {readFileAsync} = _require("./lib/readFileAsync");
 
 // A default low temperature to return when in d3cold
 const d3cold_temperature = "35";
@@ -25,7 +26,7 @@ const d3cold_temperature = "35";
 // Default sysfs mount point
 const sysfs_mount_point = "/sys";
 
-const {
+var {
   UUID,
   HOME_DIR,
   USER_DATA_DIR,
@@ -60,7 +61,7 @@ var SensorsReaper = class SensorsReaper {
     this.last_attempt_DateTime= undefined;  // the last time we checked sensors
     this.nvidia_cards = {};
     this.sensors_json_data = {};
-    this.sensors_program = ""+GLib.find_program_in_path("sensors");
+    this.sensors_program = ""+find_program_in_path("sensors");
     this.get_sensors_command();
 
     // Support for the Nvidia System Management Interface (nvidia-smi)
@@ -68,7 +69,7 @@ var SensorsReaper = class SensorsReaper {
     //   https://developer.nvidia.com/system-management-interface
     // Note: The fan values are returned as a percentage instead of RPM
     //   so are not processed
-    this.nvidia_smi_program = "" + GLib.find_program_in_path("nvidia-smi");
+    this.nvidia_smi_program = "" + find_program_in_path("nvidia-smi");
     this.get_nvidia_smi_command();
 
     this.in_fahrenheit = false;
@@ -88,7 +89,7 @@ var SensorsReaper = class SensorsReaper {
     if (this.sensors_command != undefined)
       return this.sensors_command;
 
-    //this.sensors_program = GLib.find_program_in_path("sensors");
+    //this.sensors_program = find_program_in_path("sensors");
 
     if (this.sensors_program) {
       let sensors_version = this.applet.sensors_version;

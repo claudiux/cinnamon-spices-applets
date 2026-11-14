@@ -17,7 +17,7 @@ const { ScrollDirection, Image, Actor, Color, RotateAxis } = imports.gi.Clutter;
 //Gettext:
 const { bindtextdomain, dgettext, gettext } = imports.gettext;
 //GLib:
-const { free, get_home_dir, get_language_names, get_user_name, get_user_runtime_dir, get_user_special_dir, UserDirectory, find_program_in_path, markup_escape_text, DateTime, file_test, FileTest, file_get_contents, file_set_contents, mkdir_with_parents, uuid_string_random, random_int_range, getenv, PRIORITY_LOW, SOURCE_REMOVE, SOURCE_CONTINUE } = imports.gi.GLib;
+const { free, get_home_dir, get_language_names, get_user_name, get_user_runtime_dir, get_user_special_dir, UserDirectory, markup_escape_text, DateTime, file_test, FileTest, file_get_contents, file_set_contents, mkdir_with_parents, uuid_string_random, random_int_range, getenv, PRIORITY_LOW, SOURCE_REMOVE, SOURCE_CONTINUE } = imports.gi.GLib;
 //Gtk:
 const { FileChooserDialog, FileFilter, FileChooserAction, STOCK_CANCEL, STOCK_OPEN, ResponseType, PolicyType, DirectionType } = imports.gi.Gtk;
 //Gdk:
@@ -70,6 +70,8 @@ var { Urgency, MessageTray, SystemNotificationSource, Notification } = _require(
 const TABS = ["Radios", "Search", "Import", "Menu", "Behavior", "Network", "Recording", "YT", "Scheduling", "Alarm Clock"];
 var RADIO_NOTIFICATION_TIMEOUT = 2;
 const RADIO_NOTIFICATION_CRITICAL_TIMEOUT_WITH_APPLET = 10;
+
+var { find_program_in_path } = _require("./lib/findProgramInPath");
 //readFileAsync:
 var { readFileAsync } = _require("./lib/readFileAsync");
 //checkDependencies:
