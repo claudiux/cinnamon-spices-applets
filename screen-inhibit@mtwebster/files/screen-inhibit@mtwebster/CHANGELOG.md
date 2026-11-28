@@ -1,3 +1,6 @@
+### v2.4.0~20261128
+* Change findProgramInPath script.
+
 ### v2.3.3~20261019
   * Change default keybind: from `<control>i` to `<Primary><Super>i`.
   * Fixes [#9139](https://github.com/linuxmint/cinnamon-spices-applets/issues/9139)

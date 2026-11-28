@@ -60,6 +60,7 @@ var { VolumeSlider } = require("./lib/volumeSlider");
 var { BalanceSlider } = require("./lib/balanceSlider");
 var { ControlButton } = require("./lib/controlButton");
 var { StreamMenuSection, Player, MediaPlayerLauncher, Seeker } = require("./lib/s150PopupMenu");
+//~ var audioSpectrum = require("./lib/audioSpectrum");
 
 
 const UUID = "sound150@claudiux";
@@ -672,6 +673,7 @@ var Sound150Applet = class Sound150Applet extends Applet.TextIconApplet {
         this._iconLooping = true;
 
         this.scrollEventId = this.actor.connect("scroll-event", (...args) => this._onScrollEvent(...args));
+        //~ this.touchEventId = this.actor.connect("touch-event", (...args) => this._onTouchEvent(...args));
         this.keypressEventId = this.actor.connect("key-press-event", (...args) => this._onKeyPressEvent(...args));
         this.enterEventId = this.actor.connect("enter-event", (actor, event) => this.on_enter_event(actor, event));
         this.leaveEventId = this.actor.connect("leave-event", (actor, event) => this.on_leave_event(actor, event));

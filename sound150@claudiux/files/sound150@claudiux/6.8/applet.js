@@ -40,7 +40,16 @@ const Signals = imports.signals;
 
 var Me = Extension.getCurrentExtension();
 
-var {find_program_in_path} = Me.imports["./lib/findProgramInPath"];
+var {find_program_in_path, findProgramViaWhich} = Me.imports["./lib/findProgramInPath"];
+var _IDENTIFY;
+//~ findProgramViaWhich("identify", (result) => { _identify = result != null });
+Util.spawn_async(["which", "identify"], (result) => { _IDENTIFY = result != "" });
+var _CONVERT;
+//~ findProgramViaWhich("convert", (result) => { _convert = result != null });
+Util.spawn_async(["which", "convert"], (result) => { _CONVERT = result != "" });
+var _PLAYERCTL;
+Util.spawn_async(["which", "playerctl"], (result) => { _PLAYERCTL = result != "" });
+
 var HtmlEncodeDecode = Me.imports["./lib/htmlEncodeDecode"];
 var {
     xml2json
@@ -301,7 +310,7 @@ var Sound150Applet = class Sound150Applet extends Applet.TextIconApplet {
         this.mute_in_switch = null;
         this._remove_OsdWithNumberATJosephMcc_button = null;
 
-        this.constructor_continuation();
+        let _to = setTimeout( () => { clearTimeout(_to); this.constructor_continuation(); }, 600);
     }
 
     constructor_continuation() {
@@ -1428,62 +1437,63 @@ var Sound150Applet = class Sound150Applet extends Applet.TextIconApplet {
     }
 
     on_applet_added_to_panel() {
-        this.themeNode = null;
-        this._setMenuWidth();
-        this.title_text_old = "";
-        this.startingUp = true;
-        if (this._playerctl)
-            kill_playerctld();
-        this.players_without_seek_support = original_players_without_seek_support;
-        this.players_with_seek_support = original_players_with_seek_support;
-
-        if (this._playerctl) {
-            for (let pl of this.players_without_seek_support) {
-                this.players_with_seek_support.push(pl);
-            }
-            this.players_without_seek_support = [];
-        }
-
-        let color = this.color0_100;
-        try {
-            if (this.themeNode == null && this.actor._get_stage() != null && this.actor.get_theme_node) {
-                this.themeNode = this.actor.get_theme_node();
-                let defaultColor = this.themeNode.get_foreground_color();
-                color = "rgba(" + defaultColor.red + "," + defaultColor.green + "," + defaultColor.blue + "," + defaultColor.alpha + ")";
-            }
-        } catch(e) {
-            color = this.color0_100;
-        }
-        this.color0_100 = color;
-
-        this._iconLooping = this.showalbum;
-
-        if (this._output && this._output.is_muted) {
-            this.old_volume = this.volume;
-            this._toggle_out_mute();
-            this.volume = this.old_volume;
-        }
-
-        this._on_sound_settings_change();
-
-        this._loopArtId = null;
-        this._artLooping = this.showalbum;
-        this._loopArtId = timeout_add_seconds(10, () => {
-            this.loopArt();
-        });
-
-        this.iconsMonitor = null;
-        this.iconsMonitorId = null;
-        this.monitor_icon_dir();
-        this.artsMonitor = null;
-        this.artsMonitorId = null;
-        this.monitor_art_dir();
-
-        this.volume_near_icon("on_applet_added_to_panel()");
-
         let _to = setTimeout(() => {
                 if (_to && source_exists(_to))
                     clearTimeout(_to);
+                this.themeNode = null;
+                this._setMenuWidth();
+                this.title_text_old = "";
+                this.startingUp = true;
+                if (this._playerctl)
+                    kill_playerctld();
+                this.players_without_seek_support = original_players_without_seek_support;
+                this.players_with_seek_support = original_players_with_seek_support;
+
+                if (this._playerctl) {
+                    for (let pl of this.players_without_seek_support) {
+                        this.players_with_seek_support.push(pl);
+                    }
+                    this.players_without_seek_support = [];
+                }
+
+                let color = this.color0_100;
+                try {
+                    if (this.themeNode == null && this.actor._get_stage() != null && this.actor.get_theme_node) {
+                        this.themeNode = this.actor.get_theme_node();
+                        let defaultColor = this.themeNode.get_foreground_color();
+                        color = "rgba(" + defaultColor.red + "," + defaultColor.green + "," + defaultColor.blue + "," + defaultColor.alpha + ")";
+                    }
+                } catch(e) {
+                    color = this.color0_100;
+                }
+                this.color0_100 = color;
+
+                this._iconLooping = this.showalbum;
+
+                if (this._output && this._output.is_muted) {
+                    this.old_volume = this.volume;
+                    this._toggle_out_mute();
+                    this.volume = this.old_volume;
+                }
+
+                this._on_sound_settings_change();
+
+                this._loopArtId = null;
+                this._artLooping = this.showalbum;
+                this._loopArtId = timeout_add_seconds(10, () => {
+                    this.loopArt();
+                });
+
+                this.iconsMonitor = null;
+                this.iconsMonitorId = null;
+                this.monitor_icon_dir();
+                this.artsMonitor = null;
+                this.artsMonitorId = null;
+                this.monitor_art_dir();
+
+                this.volume_near_icon("on_applet_added_to_panel()");
+
+
                 this._setKeybinding();
             },
             2100
@@ -2523,7 +2533,7 @@ var Sound150Applet = class Sound150Applet extends Applet.TextIconApplet {
             this._remove_OsdWithNumberATJosephMcc_button.actor.hide();
 
         //button Install playerctl (when it isn't installed)
-        if (this.playerControl && this._playerctl === null && !this.doNotUsePlayerctld) {
+        if (this.playerControl && !this._playerctl && !this.doNotUsePlayerctld) {
             let _install_playerctl_button = this.menu.addAction(_("Install playerctl"), () => {
                 Util.spawnCommandLineAsync("/usr/bin/env bash -C '%s/install_playerctl.sh'".format(PATH2SCRIPTS));
             });
@@ -3187,11 +3197,13 @@ var Sound150Applet = class Sound150Applet extends Applet.TextIconApplet {
     }
 
     get _playerctl() {
-        return this.playerControl && !this.doNotUsePlayerctld && find_program_in_path("playerctl");
+        //~ return this.playerControl && !this.doNotUsePlayerctld && find_program_in_path("playerctl");
+        return this.playerControl && !this.doNotUsePlayerctld && _PLAYERCTL;
     }
 
     get _imagemagick() {
-        return find_program_in_path("identify") && find_program_in_path("convert");
+        //~ return find_program_in_path("identify") && find_program_in_path("convert");
+        return _IDENTIFY && _CONVERT;
     }
 
     get showOSD() {

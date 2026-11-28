@@ -302,7 +302,7 @@ var alertNotif = null;
 
 function get_terminal() {
   var term_found = "";
-  var _terminals = ["gnome-terminal", "tilix", "konsole", "guake", "qterminal", "terminator", "uxterm", "xterm"];
+  var _terminals = ["gnome-terminal", "velocitty", "tilix", "konsole", "guake", "qterminal", "terminator", "uxterm", "xterm"];
   var t;
   for (t=0; t < _terminals.length ; ++t) {
     var res_t = "";
@@ -316,8 +316,8 @@ function get_terminal() {
 } // End of get_terminal
 
 function get_default_terminal() {
-  let _SETTINGS_SCHEMA='org.cinnamon.desktop.default-applications.terminal';
-  let _SETTINGS_KEY1 = 'exec'; // Ex: 'gnome-terminal'
+  let _SETTINGS_SCHEMA="org.cinnamon.desktop.default-applications.terminal";
+  let _SETTINGS_KEY1 = "exec"; // Ex: 'gnome-terminal'
   let _interface_settings = new Gio.Settings({ schema_id: _SETTINGS_SCHEMA });
   let ret1 = _interface_settings.get_string(_SETTINGS_KEY1);
   if (ret1 == null) {
@@ -334,7 +334,7 @@ function get_default_terminal_separator() {
   if (ret2 == null) {
     ret2 = '-e';
   }
-  return " " + ret2 + " ";
+  return "" + ret2;
 } // End of get_default_terminal_separator
 
 function isFedora() {
@@ -491,6 +491,7 @@ Dependencies.prototype = {
       // Got a terminal used on this system:
       let terminal = get_default_terminal();
       let separator = get_default_terminal_separator();
+      if (terminal == "velocitty") separator = "-e";
       // apturl is it present?
       let _is_apturl_present = is_apturl_present();
       let _is_pkcon_present = is_pkcon_present();
@@ -508,13 +509,16 @@ Dependencies.prototype = {
       let _and = " \\\\&\\\\& ";
       if (_apt_update.length === 0)
         _and = "";
-      let _apt_install = "%s %s".format(_install, _pkg_to_install.join(" "));
+      let pkgs_with_commas = _pkg_to_install.join(", ");
+      let pkgs_wo_commas = _pkg_to_install.join(" ");
+      let _apt_install = "%s %s".format(_install, pkgs_wo_commas);
       let criticalMessagePart1 = _("You appear to be missing some of the programs required for this applet to have all its features.");
+      criticalMessagePart1 += "\n" + pkgs_wo_commas;
       let criticalMessage = _is_apturl_present ? criticalMessagePart1 : criticalMessagePart1+"\n\n"+_("Please execute, in the just opened terminal, the commands:")+"\n "+ _apt_update +" \n "+ _apt_install +"\n\n";
       this.alertNotif = criticalNotify(_("Some dependencies are not installed!"), criticalMessage, icon);
 
-      let pkgs_with_commas = _pkg_to_install.join(", ");
-      let pkgs_wo_commas = _pkg_to_install.join(" ");
+      if (pkgs_wo_commas.length > 0)
+		global.log("Needed packages: " + pkgs_wo_commas);
       if (_is_pkcon_present && _is_pkexec_present) {
         GLib.spawn_command_line_async(`${terminal} ${separator} sh -c "echo 'Radio3.0 message: Some packages needed'; echo 'List of needed packages: ${pkgs_with_commas}'; pkexec pkcon -y install ${pkgs_wo_commas}"`);
         this.depAreMet = false;

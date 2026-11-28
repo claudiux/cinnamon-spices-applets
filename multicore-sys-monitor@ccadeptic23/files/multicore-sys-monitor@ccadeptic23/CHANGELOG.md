@@ -1,3 +1,6 @@
+### v3.20.0~20261128
+* Change findProgramInPath script.
+
 ### v3.19.1~20261111
   * Shrink the Right and Left Sides of the Tooltip to make it more Compact.
   * Ready for Cinnamon 6.8.

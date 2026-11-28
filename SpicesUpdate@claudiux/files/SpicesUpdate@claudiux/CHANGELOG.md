@@ -1,3 +1,6 @@
+### v7.13.0~20261128
+   * Change findProgramInPath script.
+
 ### v7.12.1~20261112
   * Ready for Cinnamon 6.8.
   * Better get default screen.

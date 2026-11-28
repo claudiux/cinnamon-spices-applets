@@ -1,3 +1,7 @@
+### v3.14.0~20261128
+  * Improves checkDependencies.js script.
+  * Changes findProgramInPath.js script.
+
 ### v3.13.3~20261122
   * Fixes errors concerning programs not found.
   * Fixes [#9311](https://github.com/linuxmint/cinnamon-spices-applets/issues/9311).

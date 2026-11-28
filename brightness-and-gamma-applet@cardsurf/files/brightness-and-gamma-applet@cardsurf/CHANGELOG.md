@@ -1,3 +1,6 @@
+### v3.4.4~20261128
+* Change findProgramInPath script.
+
 ### v3.4.3~20261124
 * Fixes some errors.
 

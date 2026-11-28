@@ -1,3 +1,6 @@
+### v2.7.0~20261128
+  * Change findProgramInPath script.
+
 ### v2.6.1~20261127
   * Minor bug fix.
 

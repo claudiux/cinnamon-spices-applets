@@ -1816,7 +1816,7 @@ var WebRadioReceiverAndRecorder = class WebRadioReceiverAndRecorder extends Text
   set_MPV_ALIAS() {
     // log("set_MPV_ALIAS");
     // log("MPV_PROGRAM: " + MPV_PROGRAM, true);
-    this.MPV_ALIAS = MPV_PROGRAM + " --no-resume-playback --no-stop-screensaver --script=%s --no-terminal --no-video --metadata-codepage=auto --input-ipc-server=%s".format(MPV_LUA_SCRIPT, MPV_SOCKET); //--reset-on-next-file=all
+    this.MPV_ALIAS = "mpv --no-resume-playback --no-stop-screensaver --script=%s --no-terminal --no-video --metadata-codepage=auto --input-ipc-server=%s".format(MPV_LUA_SCRIPT, MPV_SOCKET); //--reset-on-next-file=all
     let proxy = ""+this.settings.getValue("http-proxy");
     proxy = proxy.trim();
     if (proxy.length > 0 && proxy.startsWith("http://"))
@@ -3429,7 +3429,7 @@ var WebRadioReceiverAndRecorder = class WebRadioReceiverAndRecorder extends Text
         );
       } else {
         command = `%s --no-stop-screensaver --no-terminal --no-video --no-cache --load-scripts=no %s --metadata-codepage=auto --stream-dump="%s/%s.%s" %s &`.format(
-          MPV_PROGRAM,
+          "mpv",
           (""+this.rec_format === "flac") ? "--oac=flac" : "",
           _rec_folder,
           title_with_date,
@@ -3862,7 +3862,7 @@ var WebRadioReceiverAndRecorder = class WebRadioReceiverAndRecorder extends Text
       );
     } else {
       command = `%s --no-stop-screensaver --no-terminal --no-video --no-cache --load-scripts=no %s --metadata-codepage=auto --stream-dump="%s/%s.%s" %s &`.format(
-        MPV_PROGRAM,
+        "mpv",
         (""+this.rec_format === "flac") ? "--oac=flac" : "",
         _rec_folder,
         title.replace(/\"/g, '') + "_" + date,

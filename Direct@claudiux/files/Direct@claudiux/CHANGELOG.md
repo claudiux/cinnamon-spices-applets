@@ -1,3 +1,6 @@
+### v1.7.0~20261128
+* Change findProgramInPath script.
+
 ### v1.6.5~20261015
 * Avoid clutter_actor_insert_child_at_index error messages.
 

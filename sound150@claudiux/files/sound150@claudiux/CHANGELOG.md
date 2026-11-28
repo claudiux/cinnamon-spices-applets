@@ -1,3 +1,8 @@
+8### v16.6.0~20261128
+  * Improvements for Cinnamon 6.8.
+  * Change findProgramInPath script.
+  * Fixes [#9370](https://github.com/linuxmint/cinnamon-spices-applets/issues/9370)
+
 ### v16.5.7~20261111
   * Ready for Cinnamon 6.8.
 
